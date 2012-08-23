@@ -8,7 +8,7 @@ module LionAdmin
 		end
 
 		def version
-			version = %x[#{@user_prefix} #{SERVER_ADMIN} -v].to_s
+			version = %x[#{@user_prefix} #{SERVER_ADMIN} -v]
 		end
 		def services
 			services = %x[#{@user_prefix} #{SERVER_ADMIN} list].split("\n")
@@ -23,7 +23,7 @@ module LionAdmin
 		end
 
 		def settings(service=nil)
-			serivce = "all" if service.nil?
+			service = "all" if service.nil?
 			settings = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings -x #{service}])
 		end
 
@@ -60,7 +60,7 @@ module LionAdmin
 			output_plist = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings #{service}:#{pref} = #{value} -x])
 			return output_plist[pref]
 		end
-		
+
 		def check_if_running(service)
 			status = status(service)
 			state = status["state"]
