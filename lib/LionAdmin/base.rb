@@ -22,8 +22,7 @@ module LionAdmin
 			status = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} status -x #{service}])
 		end
 
-		def settings(service=nil)
-			service = "all" if service.nil?
+		def settings(service)
 			settings = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings -x #{service}])
 		end
 
