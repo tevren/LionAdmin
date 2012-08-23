@@ -55,6 +55,28 @@ module LionAdmin
 			end
 		end
 
+		def get_running_services
+			running_services = Array.new
+			list_of_services = services
+			list_of_services.each do |s|
+				if check_if_running(s)
+					running_services.push(s)
+				end
+			end
+			return running_services
+		end
+
+		def get_stopped_services
+			stopped_services = Array.new
+			list_of_services = services
+			list_of_services.each do |s|
+				unless check_if_running(s)
+					stopped_services.push(s)
+				end
+			end
+			return stopped_services
+		end
+
 		def change_settings(service,pref,value)
 			output_plist = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings #{service}:#{pref} = #{value} -x])
 			return output_plist[pref]

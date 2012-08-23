@@ -46,7 +46,51 @@ Where RUBY_USER is the name of the user that is ssh-ing to the server.
 
 
 ## Usage
+Create a new instance:
 
+	lion = LionAdmin::Base.new(user@mountainlion.server.com)
+
+Get list of all services
+
+	lion.services
+
+Get the status of a service
+
+	lion.status(service)
+
+Get the ful status of a service
+
+	lion.fullstatus(service)
+
+Get the settings for a service
+
+	lion.settings(service)
+
+Start a service
+
+	lion.start_service(service)
+
+Stop a service
+
+	lion.stop_service(service)
+
+Run a command
+
+	lion.run_command(service,command)
+
+Get running services
+	
+	lion.get_running_services
+
+Get stopped services
+
+	lion.get_stopped_services
+
+Change settings
+
+	lion.change_settings(service, preference, new_value)
+
+	#PLEASE NOTE: THIS METHOD NEEDS MORE TESTING AND DO NO CHANGE SETTINGS UNLESS YOU ARE ABSOLUTELY SURE THE NEW VALUE WILL WORK
 
 ## Contributing
 
