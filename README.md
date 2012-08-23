@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # LionAdmin
 
 TODO: Write a gem description
