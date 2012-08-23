@@ -83,9 +83,9 @@ module LionAdmin
 		end
 
 		def check_if_running(service)
-			status = status(service)
-			state = status["state"]
-			if state.match(/RUNNING/)
+			status = status(service) if !service.nil?
+			state = status["state"] if !status.nil?
+			if !state.nil? && state.match(/RUNNING/)
 				return true
 			else 
 				return false
