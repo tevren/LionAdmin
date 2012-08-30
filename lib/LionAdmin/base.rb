@@ -1,26 +1,28 @@
 require 'plist'
 module LionAdmin
 	class Base
-		SERVER_ADMIN="/Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin"
-		unless File.exists?(SERVER_ADMIN)
-			SERVER_ADMIN="/usr/sbin/serveradmin"
-		end
+		SERVER_ADMIN="serveradmin"
 
 		def initialize(user)
 			@user_prefix = "ssh #{user} sudo"
-			exit unless File.exists?(SERVER_ADMIN)
 		end
 
 		def version
 			version = %x[#{@user_prefix} #{SERVER_ADMIN} -v]
 		end
 
-		def get_hostname
-			hostname = %x[#{@user_prefix} hostname]
+		def hostname
+			hostname = %x[#{@user_prefix} hostname].chomp
 		end
 
-		def get_serialnumber
-			serial = %x[#{@user_prefix} /usr/sbin/ioreg -l | grep IOPlatformSerialNumber | cut -f 2 -d "=" | sed s/\"// | sed s/\"//].strip
+		def serialnumber
+			system_profiler = %x[#{@user_prefix} system_profiler SPHardwareDataType]
+			system_profiler.each_line do |line|
+				if line.match("Serial Number") && line.match("system")
+					serial = line.split(":").last
+				end
+			end
+			return serial
 		end
 
 		def services
