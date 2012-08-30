@@ -20,7 +20,7 @@ module LionAdmin
 			system_profiler = %x[#{@user_prefix} system_profiler SPHardwareDataType]
 			system_profiler.each_line do |line|
 				if line.match("Serial Number") && line.match("system")
-					serial = line.split(":").last
+					serial = line.split(":").last.chomp.strip
 				end
 			end
 			return serial
