@@ -14,6 +14,15 @@ module LionAdmin
 		def version
 			version = %x[#{@user_prefix} #{SERVER_ADMIN} -v]
 		end
+
+		def get_hostname
+			hostname = %x[#{@user_prefix} hostname]
+		end
+
+		def get_serialnumber
+			serial = %x[#{@user_prefix} /usr/sbin/ioreg -l | grep IOPlatformSerialNumber | cut -f 2 -d "=" | sed s/\"// | sed s/\"//].strip
+		end
+
 		def services
 			services = %x[#{@user_prefix} #{SERVER_ADMIN} list].split("\n")
 		end
