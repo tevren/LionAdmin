@@ -2,6 +2,10 @@ require 'plist'
 module LionAdmin
 	class Base
 		SERVER_ADMIN="/Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin"
+		unless File.exists?(SERVER_ADMIN)
+			SERVER_ADMIN="/usr/sbin/serveradmin"
+		end
+
 		def initialize(user)
 			@user_prefix = "ssh #{user} sudo"
 			exit unless File.exists?(SERVER_ADMIN)
