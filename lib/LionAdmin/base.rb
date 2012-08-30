@@ -1,14 +1,19 @@
 require 'plist'
 module LionAdmin
 	class Base
-		SERVER_ADMIN="serveradmin"
 
 		def initialize(user)
 			@user_prefix = "ssh #{user}"
+			@os_version = %x[@user_prefix defaults read loginwindow SystemVersionStampAsString]
+			if @os_version.match(10\.7|10\.8)
+				@serveradmin="/Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin"
+			else
+				@serveradmin="/usr/sbin/serveradmin"
+			end
 		end
 
 		def version
-			version = %x[#{@user_prefix} #{SERVER_ADMIN} -v]
+			version = %x[#{@user_prefix} #{@serveradmin} -v]
 		end
 
 		def hostname
@@ -27,19 +32,19 @@ module LionAdmin
 		end
 
 		def services
-			services = %x[#{@user_prefix} sudo #{SERVER_ADMIN} list].split("\n")
+			services = %x[#{@user_prefix} sudo #{@serveradmin} list].split("\n")
 		end
 
 		def fullstatus(service)
-			fullstatus = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} fullstatus -x #{service}])
+			fullstatus = Plist::parse_xml(%x[#{@user_prefix} sudo #{@serveradmin} fullstatus -x #{service}])
 		end
 
 		def status(service)
-			status = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} status -x #{service}])
+			status = Plist::parse_xml(%x[#{@user_prefix} sudo #{@serveradmin} status -x #{service}])
 		end
 
 		def settings(service)
-			settings = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} settings -x #{service}])
+			settings = Plist::parse_xml(%x[#{@user_prefix} sudo #{@serveradmin} settings -x #{service}])
 		end
 
 		def start_service(service)
@@ -47,7 +52,7 @@ module LionAdmin
 				return "service is already running..."
 			else
 				puts "starting service: #{service}..."
-				%x[#{@user_prefix} #{SERVER_ADMIN} start #{service}]
+				%x[#{@user_prefix} #{@serveradmin} start #{service}]
 				puts "service: #{service} started!"
 			end
 		end
@@ -55,7 +60,7 @@ module LionAdmin
 		def stop_service(service)
 			if check_if_running(service)
 				puts "stopping service: #{service}..."
-				%x[#{@user_prefix} #{SERVER_ADMIN} stop #{service}]
+				%x[#{@user_prefix} #{@serveradmin} stop #{service}]
 				puts "service: #{service} stopped!"
 			else
 				return "service is already stopped"
@@ -63,7 +68,7 @@ module LionAdmin
 		end
 
 		def run_command(service,command)
-			output = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} command #{service}:command = #{command}])
+			output = Plist::parse_xml(%x[#{@user_prefix} sudo #{@serveradmin} command #{service}:command = #{command}])
 			if output.match("UNEXPECTED_COMMAND")
 				return "received unexpected command"
 			else
@@ -94,7 +99,7 @@ module LionAdmin
 		end
 
 		def change_settings(service,pref,value)
-			output_plist = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} settings #{service}:#{pref} = #{value} -x])
+			output_plist = Plist::parse_xml(%x[#{@user_prefix} sudo #{@serveradmin} settings #{service}:#{pref} = #{value} -x])
 			return output_plist[pref]
 		end
 
