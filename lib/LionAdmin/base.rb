@@ -4,7 +4,7 @@ module LionAdmin
 		SERVER_ADMIN="serveradmin"
 
 		def initialize(user)
-			@user_prefix = "ssh #{user} sudo"
+			@user_prefix = "ssh #{user}"
 		end
 
 		def version
@@ -26,19 +26,19 @@ module LionAdmin
 		end
 
 		def services
-			services = %x[#{@user_prefix} #{SERVER_ADMIN} list].split("\n")
+			services = %x[#{@user_prefix} sudo #{SERVER_ADMIN} list].split("\n")
 		end
 
 		def fullstatus(service)
-			fullstatus = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} fullstatus -x #{service}])
+			fullstatus = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} fullstatus -x #{service}])
 		end
 
 		def status(service)
-			status = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} status -x #{service}])
+			status = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} status -x #{service}])
 		end
 
 		def settings(service)
-			settings = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings -x #{service}])
+			settings = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} settings -x #{service}])
 		end
 
 		def start_service(service)
@@ -62,7 +62,7 @@ module LionAdmin
 		end
 
 		def run_command(service,command)
-			output = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} command #{service}:command = #{command}])
+			output = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} command #{service}:command = #{command}])
 			if output.match("UNEXPECTED_COMMAND")
 				return "received unexpected command"
 			else
@@ -93,7 +93,7 @@ module LionAdmin
 		end
 
 		def change_settings(service,pref,value)
-			output_plist = Plist::parse_xml(%x[#{@user_prefix} #{SERVER_ADMIN} settings #{service}:#{pref} = #{value} -x])
+			output_plist = Plist::parse_xml(%x[#{@user_prefix} sudo #{SERVER_ADMIN} settings #{service}:#{pref} = #{value} -x])
 			return output_plist[pref]
 		end
 
