@@ -4,7 +4,7 @@ module LionAdmin
 
 		def initialize(user)
 			@user_prefix = "ssh #{user}"
-			@os_version = %x[@user_prefix defaults read loginwindow SystemVersionStampAsString]
+			@os_version = %x[#{@user_prefix} defaults read loginwindow SystemVersionStampAsString]
 			if @os_version.match(/10\.7.*|10\.8.*/)
 				@serveradmin="/Applications/Server.app/Contents/ServerRoot/usr/sbin/serveradmin"
 			else
