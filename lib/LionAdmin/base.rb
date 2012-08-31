@@ -52,7 +52,7 @@ module LionAdmin
 				return "service is already running..."
 			else
 				puts "starting service: #{service}..."
-				%x[#{@user_prefix} #{@serveradmin} start #{service}]
+				%x[#{@user_prefix} sudo #{@serveradmin} start #{service}]
 				puts "service: #{service} started!"
 			end
 		end
@@ -60,7 +60,7 @@ module LionAdmin
 		def stop_service(service)
 			if check_if_running(service)
 				puts "stopping service: #{service}..."
-				%x[#{@user_prefix} #{@serveradmin} stop #{service}]
+				%x[#{@user_prefix} sudo #{@serveradmin} stop #{service}]
 				puts "service: #{service} stopped!"
 			else
 				return "service is already stopped"
