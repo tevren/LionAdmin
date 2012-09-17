@@ -20,15 +20,15 @@ module LionAdmin
 			hostname = %x[#{@user_prefix} hostname].chomp
 		end
 
-		def serialnumber
-			serial = String.new
-			system_profiler = %x[#{@user_prefix} system_profiler SPHardwareDataType]
-			system_profiler.each_line do |line|
-				if line.match("Serial Number") && line.match("system")
-					serial = line.split(":").last.chomp.strip
-				end
+		def host_status(host)
+			ping_count = 10
+			server = host
+			result = %x[ping -q -c #{ping_count} #{server}]
+			if ($?.exitstatus == 0)
+				return true
+			else
+				return false
 			end
-			return serial
 		end
 
 		def services
