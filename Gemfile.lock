@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    LionAdmin (0.0.1)
+    LionAdmin (0.0.7)
       plist
 
 GEM
