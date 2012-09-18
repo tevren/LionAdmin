@@ -1,12 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Backup < Base
-		def getState
-		end
-		def readSettings
-		end
-		def writeSettings
-		end
+	class Backup < Service
 		def browseBackup
 		end
 		def restoreFromBackup

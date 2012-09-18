@@ -1,15 +1,7 @@
 require 'plist'
 module LionAdmin
-	class Teams < Base
-		def getState
-		end
-		def setState
-		end
+	class Teams < Service
 		def tailFile
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def getWikisList
 		end

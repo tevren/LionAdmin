@@ -1,10 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Web < Base
-		def getState
-		end
-		def setState
-		end
+	class Web < Service
 		def getLogPaths
 		end
 		def tailFile
@@ -12,10 +8,6 @@ module LionAdmin
 		def getHistory
 		end
 		def getSites
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def initialSetup
 		end

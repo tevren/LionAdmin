@@ -1,17 +1,9 @@
 require 'plist'
 module LionAdmin
-	class Radius < Base
-		def getState
-		end
-		def setState
-		end
+	class Radius < Service
 		def getLogPaths
 		end
 		def tailFile
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def addClients
 		end

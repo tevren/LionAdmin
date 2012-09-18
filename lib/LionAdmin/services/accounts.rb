@@ -1,6 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Accounts < Base
+	class Accounts < Service
 		def authenticateAdmin
 		end
 		def getUserList

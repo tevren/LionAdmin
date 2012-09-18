@@ -1,6 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Bonjour < Base
+	class Bonjour < Service
 		def getBonjourInstanceNames
 		end
 	end

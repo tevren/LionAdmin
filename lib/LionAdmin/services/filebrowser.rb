@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Filebrowser < Base
-		def getState
-		end
+	class Filebrowser < Service
 		def getDirectoryEntries
 		end
 		def getIconsForPaths

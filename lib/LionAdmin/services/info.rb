@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class info < Base
-		def getState
-		end
+	class info < Service
 		def getSACLsForUser
 		end
 		def getServicesInfo
@@ -28,10 +26,6 @@ module LionAdmin
 		def reboot
 		end
 		def readServiceConfig
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def getContext
 		end

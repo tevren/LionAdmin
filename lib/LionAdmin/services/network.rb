@@ -1,12 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Network < Base
-		def getState
-		end
-		def readSettings
-		end
-		def writeSettings
-		end
+	class Network < Service
 		def getIGDPortMappings
 		end
 		def syncIGDPortMappings

@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Mail < Base
-		def getState
-		end
+	class Mail < Service
 		def getConnectedUsers
 		end
 		def getUserAccounts
@@ -11,15 +9,9 @@ module LionAdmin
 		end
 		def getHistory
 		end
-		def setState
-		end
 		def getLogPaths
 		end
 		def tailFile
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def intialSetup
 		end

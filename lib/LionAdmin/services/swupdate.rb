@@ -1,10 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Swupdate < Base
-		def getState
-		end
-		def setState
-		end
+	class Swupdate < Service
 		def getLogPaths
 		end
 		def tailFile
@@ -12,10 +8,6 @@ module LionAdmin
 		def CopyNow
 		end
 		def CheckNow
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 	end
 end

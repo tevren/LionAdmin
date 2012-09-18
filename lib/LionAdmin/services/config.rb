@@ -1,6 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Config < Base
+	class Config < Service
 		def getSystemProfile
 		end
 		def setXsanControllerProperties
@@ -8,10 +8,6 @@ module LionAdmin
 		def getConnectedUsers
 		end
 		def setUpServer
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 	end
 end

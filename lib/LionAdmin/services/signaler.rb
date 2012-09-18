@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Signaler < Base
-		def getState
-		end
+	class Signaler < Service
 		def fireHomeDirsCreation
 		end
 		def fireHomeDirsCreation2

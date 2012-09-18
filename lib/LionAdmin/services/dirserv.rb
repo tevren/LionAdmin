@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Dirserv < Base
-		def getState
-		end
+	class Dirserv < Service
 		def getConfiguredDirectoryServers
 		end
 		def validateADCredentials
@@ -22,10 +20,6 @@ module LionAdmin
 		def addODServer
 		end
 		def removeODServer
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def preflightMasterCreation
 		end

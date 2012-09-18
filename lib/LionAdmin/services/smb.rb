@@ -1,10 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Smb < Base
-		def getState
-		end
-		def setState
-		end
+	class Smb < Service
 		def getConnectedUsers
 		end
 		def disconnectUsers
@@ -16,10 +12,6 @@ module LionAdmin
 		def getHistory
 		end
 		def syncSharePoints
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def syncPrefs
 		end

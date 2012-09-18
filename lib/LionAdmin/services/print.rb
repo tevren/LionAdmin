@@ -1,8 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Print < Base
-		def getState
-		end
+	class Print < Service
 		def getQueues
 		end
 		def getJobs
@@ -11,15 +9,9 @@ module LionAdmin
 		end
 		def setJobState
 		end
-		def setState
-		end
 		def getLogPaths
 		end
 		def tailFile
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def makePrinterID
 		end

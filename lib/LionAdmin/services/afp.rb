@@ -1,10 +1,6 @@
 require 'plist'
 module LionAdmin
-	class Afp < Base
-		def getState
-		end
-		def setState
-		end
+	class Afp < Service
 		def getConnectedUsers
 		end
 		def disconnectUsers
@@ -22,10 +18,6 @@ module LionAdmin
 		def getHistory
 		end
 		def syncSharePoints
-		end
-		def readSettings
-		end
-		def writeSettings
 		end
 		def getEncodings
 		end
