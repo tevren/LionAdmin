@@ -1,6 +1,6 @@
 require 'plist'
 module LionAdmin
-	class info < Service
+	class Info < Service
 		def getSACLsForUser
 		end
 		def getServicesInfo
