@@ -1,7 +1,6 @@
 require 'plist'
 module LionAdmin
 	class Base
-
 		def initialize(user)
 			@user_prefix = "ssh #{user}"
 			@os_version = %x[#{@user_prefix} defaults read loginwindow SystemVersionStampAsString]
@@ -13,16 +12,16 @@ module LionAdmin
 		end
 
 		def version
-			version = %x[#{@user_prefix} #{@serveradmin} -v]
+			version = %x[#{@user_prefix} sudo #{@serveradmin} -v]
 		end
 
 		def hostname
 			hostname = %x[#{@user_prefix} hostname].chomp
 		end
 
-		def host_status(host)
-			ping_count = 10
-			server = host
+		def host_status
+			ping_count = 5
+			server = @user_prefix.split('@').last
 			result = %x[ping -q -c #{ping_count} #{server}]
 			if ($?.exitstatus == 0)
 				return true
@@ -30,6 +29,9 @@ module LionAdmin
 				return false
 			end
 		end
-
+		
+		def services
+			services = %x[#{@user_prefix} sudo #{@serveradmin} list].split("\n")
+		end
 	end
 end
