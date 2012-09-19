@@ -32,7 +32,21 @@ module LionAdmin
 			return tailFile
 		end
 		
-		def intialSetup
+		def intialSetup(dataLocation="")
+			if dataLocation.blank?
+				cmd = "#{service_name}:command = intialSetup\n"
+			else
+				cmd = "#{service_name}:command = intialSetup\n#{service_name}:dataLocation = #{dataLocation}"
+			end
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			intialSetup = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return intialSetup
 		end
 	end
 end
