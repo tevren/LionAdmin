@@ -32,8 +32,28 @@ module LionAdmin
 		end
 		
 		def CopyNow
+			cmd = "#{service_name}:command = CopyNow"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			copyNow = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return copyNow
 		end
 		def CheckNow
+			cmd = "#{service_name}:command = CheckNow"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			checkNow = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return checkNow
 		end
 	end
 end
