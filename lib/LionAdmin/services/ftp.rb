@@ -1,7 +1,18 @@
 require 'plist'
 module LionAdmin
 	class Ftp < Service
+
 		def getConnectedUsers
+			cmd = "#{service_name}:command = getConnectedUsers"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getConnectedUsers = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getConnectedUsers
 		end
 		
 		def getLogPaths
@@ -34,7 +45,17 @@ module LionAdmin
 			return tailFile
 		end
 		
-		def intialSetup
+		def intialSetup(dataLocation)
+			cmd = "#{service_name}:command = dataLocation\n#{service_name}:dataLocation = #{dataLocation}"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			intialSetup = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return intialSetup
 		end
 	end
 end
