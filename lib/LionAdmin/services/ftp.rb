@@ -46,7 +46,7 @@ module LionAdmin
 		end
 		
 		def intialSetup(dataLocation)
-			cmd = "#{service_name}:command = dataLocation\n#{service_name}:dataLocation = #{dataLocation}"
+			cmd = "#{service_name}:command = intialSetup\n#{service_name}:dataLocation = #{dataLocation}"
 			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
 			File.open(tmp_command_file, 'w') {|f| 
 				f.write(cmd)
