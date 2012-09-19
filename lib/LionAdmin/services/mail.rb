@@ -1,12 +1,46 @@
 require 'plist'
 module LionAdmin
 	class Mail < Service
+
 		def getConnectedUsers
+			cmd = "#{service_name}:command = getConnectedUsers"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getConnectedUsers = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getConnectedUsers
 		end
+		
 		def getUserAccounts
+			cmd = "#{service_name}:command = getUserAccounts"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getUserAccounts = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getUserAccounts
 		end
+		
 		def getMaintenance
+			cmd = "#{service_name}:command = getMaintenance"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getMaintenance = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getMaintenance			
 		end
+
 		def getHistory
 		end
 		
@@ -41,6 +75,17 @@ module LionAdmin
 		end
 		
 		def intialSetup
+			cmd = "#{service_name}:command = intialSetup"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			intialSetup = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return intialSetup
 		end
+		
 	end
 end

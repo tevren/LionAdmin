@@ -34,8 +34,30 @@ module LionAdmin
 		def getHistory
 		end
 		def getSites
+			cmd = "#{service_name}:command = getSites"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getSites = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getSites
 		end
-		def initialSetup
+
+		def intialSetup
+			cmd = "#{service_name}:command = intialSetup"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			intialSetup = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return intialSetup
 		end
+
 	end
 end

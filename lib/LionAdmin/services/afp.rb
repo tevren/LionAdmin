@@ -1,8 +1,18 @@
 require 'plist'
 module LionAdmin
 	class Afp < Service
-
+		
 		def getConnectedUsers
+			cmd = "#{service_name}:command = getConnectedUsers"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getConnectedUsers = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getConnectedUsers
 		end
 
 		def disconnectUsers
@@ -51,9 +61,29 @@ module LionAdmin
 		end
 
 		def syncSharePoints
+			cmd = "#{service_name}:command = syncSharePoints"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			syncSharePoints = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return syncSharePoints
 		end
 
 		def getEncodings
+			cmd = "#{service_name}:command = getEncodings"
+			tmp_command_file = "/tmp/#{service_name}.command.#{Time.current.to_formatted_s(:number)}"
+			File.open(tmp_command_file, 'w') {|f| 
+				f.write(cmd)
+				f.close
+			}
+			plist = %x[#{@user_prefix} sudo #{@serveradmin} -x command < #{tmp_command_file}]
+			getEncodings = Plist::parse_xml(plist)
+			File.delete(tmp_command_file)
+			return getEncodings
 		end
 
 	end
